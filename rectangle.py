@@ -9,12 +9,20 @@ class Rectangle:
         self.rect = self.image.get_rect()
         self.rect.centerx = 0
         self.rect.centery = 0
-        self.is_moving = False
+        self.is_moving_right = False
+        self.is_moving_left = False
+        self.is_moving_down = False
+        self.is_moving_up = False
 
     def output(self):
         self.screen.blit(self.image, (self.rect.centerx, self.rect.centery))
 
     def moving(self):
-        if self.is_moving:
+        if self.is_moving_right and self.rect.centerx < 499:
             self.rect.centerx += 1
-
+        elif self.is_moving_left and self.rect.centerx > 0:
+            self.rect.centerx -= 1
+        elif self.is_moving_down and self.rect.centery < 499:
+            self.rect.centery += 1
+        elif self.is_moving_up and self.rect.centery > 0:
+            self.rect.centery -= 1
