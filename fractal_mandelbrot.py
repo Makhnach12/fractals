@@ -8,22 +8,18 @@ from rectangle import Rectangle
 
 def main():
     mandelbrot = mandelbrot_set.mandelbrot_set()
-    x, y = 0, 0
     pygame.init()
     screen = pygame.display.set_mode((mandelbrot.SIZE, mandelbrot.SIZE))
     pygame.display.set_caption("Множество Мандельброта")
     screen.fill((0, 0, 0))
-    draw.new_mandelbrot(screen, (x, y), mandelbrot.SCALE, mandelbrot.SIZE, (0, 0))
+    draw.draw_mandelbrot_in_area(screen, (0, 0), mandelbrot.SCALE, mandelbrot.SIZE, (0, 0))
     red_square = Rectangle(screen, 1, 1)
     red_square.output()
 
     while True:
-        controller.control(red_square, screen, mandelbrot, [x, y])
-        if red_square.is_moving_right or red_square.is_moving_left \
-                or red_square.is_moving_down or red_square.is_moving_up:
-            draw.new_mandelbrot(screen, (mandelbrot.x_0 + red_square.rect.centerx / mandelbrot.SCALE
-                                         , mandelbrot.y_0 + red_square.rect.centery / mandelbrot.SCALE),
-                                mandelbrot.SCALE, 100, (red_square.rect.centerx, red_square.rect.centery))
+        controller.control(red_square, screen, mandelbrot)
+        if red_square.check_move():
+            red_square.delete_rectangle(screen, mandelbrot, 100)
         red_square.moving()
         red_square.output()
         pygame.display.update()

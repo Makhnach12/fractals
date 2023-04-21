@@ -2,10 +2,10 @@ import pygame
 
 import mandelbrot_set
 import rectangle
-from draw import new_mandelbrot
+from draw import draw_mandelbrot_in_area
 
 
-def control(red_square: rectangle.Rectangle, screen, mandelbrot: mandelbrot_set.mandelbrot_set, coordinates):
+def control(red_square: rectangle.Rectangle, screen, mandelbrot: mandelbrot_set.mandelbrot_set):
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
             exit()
@@ -19,13 +19,25 @@ def control(red_square: rectangle.Rectangle, screen, mandelbrot: mandelbrot_set.
             elif event.key == pygame.K_UP:
                 red_square.is_moving_up = True
             elif event.key == pygame.K_RETURN:
+                mandelbrot.coords_history.append([mandelbrot.x_0, mandelbrot.y_0])
                 mandelbrot.x_0 += red_square.rect.centerx / mandelbrot.SCALE
                 mandelbrot.y_0 += red_square.rect.centery / mandelbrot.SCALE
                 mandelbrot.SCALE *= 6
-                new_mandelbrot(screen, (mandelbrot.x_0,
-                                        mandelbrot.y_0),
-                               mandelbrot.SCALE,
-                               mandelbrot.SIZE, (0, 0))
+                draw_mandelbrot_in_area(screen, (mandelbrot.x_0,
+                                                 mandelbrot.y_0),
+                                        mandelbrot.SCALE,
+                                        mandelbrot.SIZE, (0, 0))
+            elif event.key == pygame.K_RSHIFT or event.key == pygame.K_LSHIFT:
+                mandelbrot.x_0, mandelbrot.y_0 = mandelbrot.coords_history.pop()
+                mandelbrot.SCALE //= 6
+                draw_mandelbrot_in_area(screen, (mandelbrot.x_0,
+                                                 mandelbrot.y_0),
+                                        mandelbrot.SCALE,
+                                        mandelbrot.SIZE, (0, 0))
+            elif event.key == pygame.K_s:
+                red_square.delete_rectangle(screen, mandelbrot, 100)
+                pygame.image.save(screen, "/Users/nikita/Desktop/image.jpg")
+                red_square.output()
         elif event.type == pygame.KEYUP:
             if event.key == pygame.K_RIGHT:
                 red_square.is_moving_right = False

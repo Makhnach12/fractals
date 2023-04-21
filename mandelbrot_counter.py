@@ -2,7 +2,7 @@ from numba import njit
 
 
 @njit(fastmath=True)
-def mandelbrot_scale(user_view, scale, size, coordinates):
+def mandelbrot_count(user_view, scale, size, coordinates):
     for j in range(size):
         b = (j / scale + user_view[1]) / 150 - 2
         for i in range(size):
