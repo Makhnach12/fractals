@@ -1,11 +1,11 @@
 import pygame
 
+import mandelbrot_set
 import rectangle
-from draw import draw_mandelbrot, new_mandelbrot
-from fractal_mandelbrot import SIZE, SCALE
+from draw import new_mandelbrot
 
 
-def control(red_square: rectangle.Rectangle, screen, scale, coordinates):
+def control(red_square: rectangle.Rectangle, screen, mandelbrot: mandelbrot_set.mandelbrot_set, coordinates):
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
             exit()
@@ -19,7 +19,13 @@ def control(red_square: rectangle.Rectangle, screen, scale, coordinates):
             elif event.key == pygame.K_UP:
                 red_square.is_moving_up = True
             elif event.key == pygame.K_RETURN:
-                new_mandelbrot(screen, (red_square.rect.centerx / SCALE, red_square.rect.centery / SCALE), scale * 4.5, SIZE)
+                mandelbrot.x_0 += red_square.rect.centerx / mandelbrot.SCALE
+                mandelbrot.y_0 += red_square.rect.centery / mandelbrot.SCALE
+                mandelbrot.SCALE *= 6
+                new_mandelbrot(screen, (mandelbrot.x_0,
+                                        mandelbrot.y_0),
+                               mandelbrot.SCALE,
+                               mandelbrot.SIZE, (0, 0))
         elif event.type == pygame.KEYUP:
             if event.key == pygame.K_RIGHT:
                 red_square.is_moving_right = False
