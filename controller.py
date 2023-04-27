@@ -26,16 +26,18 @@ def control(red_square: rectangle.Rectangle, screen, mandelbrot: mandelbrot_set.
                 draw_mandelbrot_in_area(screen, (mandelbrot.x_0,
                                                  mandelbrot.y_0),
                                         mandelbrot.SCALE,
-                                        mandelbrot.SIZE, (0, 0))
+                                        mandelbrot.SIZE, (0, 0), mandelbrot.num_iterations,
+                                        mandelbrot.radius, mandelbrot.z_0, mandelbrot.parameter)
             elif event.key == pygame.K_RSHIFT or event.key == pygame.K_LSHIFT:
                 mandelbrot.x_0, mandelbrot.y_0 = mandelbrot.coords_history.pop()
                 mandelbrot.SCALE //= 6
                 draw_mandelbrot_in_area(screen, (mandelbrot.x_0,
                                                  mandelbrot.y_0),
                                         mandelbrot.SCALE,
-                                        mandelbrot.SIZE, (0, 0))
+                                        mandelbrot.SIZE, (0, 0), mandelbrot.num_iterations,
+                                        mandelbrot.radius, mandelbrot.z_0, mandelbrot.parameter)
             elif event.key == pygame.K_s:
-                red_square.delete_rectangle(screen, mandelbrot, 100)
+                red_square.delete_rectangle(screen, mandelbrot)
                 pygame.image.save(screen, "/Users/nikita/Desktop/image.jpg")
                 red_square.output()
         elif event.type == pygame.KEYUP:

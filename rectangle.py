@@ -1,11 +1,11 @@
 import pygame
-from pygame import Surface, gfxdraw
 
 import draw
+import mandelbrot_set
 
 
 class Rectangle:
-    def __init__(self, screen, x_0, y_0):
+    def __init__(self, screen):
         self.screen = screen
         self.image = pygame.image.load('pixilart-drawing-2.png')
         self.rect = self.image.get_rect()
@@ -19,10 +19,12 @@ class Rectangle:
     def output(self):
         self.screen.blit(self.image, (self.rect.centerx, self.rect.centery))
 
-    def delete_rectangle(self, screen, mandelbrot, num_iters):
-        draw.draw_mandelbrot_in_area(screen, (mandelbrot.x_0 + self.rect.centerx / mandelbrot.SCALE
-                                              , mandelbrot.y_0 + self.rect.centery / mandelbrot.SCALE),
-                                     mandelbrot.SCALE, num_iters, (self.rect.centerx, self.rect.centery))
+    def delete_rectangle(self, screen, mandelbrot: mandelbrot_set.mandelbrot_set):
+        draw.draw_mandelbrot_in_area(screen, (mandelbrot.x_0 + self.rect.centerx / mandelbrot.SCALE,
+                                              mandelbrot.y_0 + self.rect.centery / mandelbrot.SCALE),
+                                     mandelbrot.SCALE, 100,
+                                     (self.rect.centerx, self.rect.centery), mandelbrot.num_iterations,
+                                     mandelbrot.radius, mandelbrot.z_0, mandelbrot.parameter)
 
     def moving(self):
         if self.is_moving_right and self.rect.centerx < 499:
@@ -36,6 +38,4 @@ class Rectangle:
 
     def check_move(self):
         return self.is_moving_right or self.is_moving_left \
-                or self.is_moving_down or self.is_moving_up
-
-
+            or self.is_moving_down or self.is_moving_up
