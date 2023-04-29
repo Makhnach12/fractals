@@ -23,8 +23,10 @@ def main():
     screen = pygame.display.set_mode((mandelbrot.SIZE, mandelbrot.SIZE))
     pygame.display.set_caption("Множество Мандельброта")
     screen.fill((0, 0, 0))
-    draw.draw_mandelbrot_in_area(screen, (0, 0), mandelbrot.SCALE, mandelbrot.SIZE, (0, 0),
-                                 mandelbrot.num_iterations, mandelbrot.radius, mandelbrot.z_0, mandelbrot.parameter)
+    draw.draw_mandelbrot_in_area(screen, (0, 0), mandelbrot.SCALE, mandelbrot.SIZE,
+                                 mandelbrot.SIZE, (0, 0),
+                                 mandelbrot.num_iterations, mandelbrot.radius,
+                                 mandelbrot.z_0, mandelbrot.parameter)
     red_square = Rectangle(screen)
     red_square.output()
 

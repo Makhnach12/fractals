@@ -22,8 +22,23 @@ class Rectangle:
     def delete_rectangle(self, screen, mandelbrot: mandelbrot_set.mandelbrot_set):
         draw.draw_mandelbrot_in_area(screen, (mandelbrot.x_0 + self.rect.centerx / mandelbrot.SCALE,
                                               mandelbrot.y_0 + self.rect.centery / mandelbrot.SCALE),
-                                     mandelbrot.SCALE, 100,
+                                     mandelbrot.SCALE, 100, 1,
                                      (self.rect.centerx, self.rect.centery), mandelbrot.num_iterations,
+                                     mandelbrot.radius, mandelbrot.z_0, mandelbrot.parameter)
+        draw.draw_mandelbrot_in_area(screen, (mandelbrot.x_0 + self.rect.centerx / mandelbrot.SCALE,
+                                              mandelbrot.y_0 + (self.rect.centery + 99) / mandelbrot.SCALE),
+                                     mandelbrot.SCALE, 100, 1,
+                                     (self.rect.centerx, self.rect.centery + 99), mandelbrot.num_iterations,
+                                     mandelbrot.radius, mandelbrot.z_0, mandelbrot.parameter)
+        draw.draw_mandelbrot_in_area(screen, (mandelbrot.x_0 + self.rect.centerx / mandelbrot.SCALE,
+                                              mandelbrot.y_0 + self.rect.centery / mandelbrot.SCALE),
+                                     mandelbrot.SCALE, 1, 100,
+                                     (self.rect.centerx, self.rect.centery), mandelbrot.num_iterations,
+                                     mandelbrot.radius, mandelbrot.z_0, mandelbrot.parameter)
+        draw.draw_mandelbrot_in_area(screen, (mandelbrot.x_0 + (self.rect.centerx + 99) / mandelbrot.SCALE,
+                                              mandelbrot.y_0 + self.rect.centery / mandelbrot.SCALE),
+                                     mandelbrot.SCALE, 1, 100,
+                                     (self.rect.centerx + 99, self.rect.centery), mandelbrot.num_iterations,
                                      mandelbrot.radius, mandelbrot.z_0, mandelbrot.parameter)
 
     def moving(self):

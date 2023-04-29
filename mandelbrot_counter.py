@@ -2,11 +2,12 @@ from numba import njit
 
 
 @njit(fastmath=True)
-def mandelbrot_count(user_view, scale, size, coordinates, num_iterations, radius, z_0, parameter):
-    for j in range(size):
-        b = (j / scale + user_view[1]) / (parameter * 75) - parameter
-        for i in range(size):
-            a = (i / scale + user_view[0]) / (parameter * 75) - parameter
+def mandelbrot_count(user_view, scale, size_x, size_y,
+                     coordinates, num_iterations, radius, z_0, parameter):
+    for j in range(size_y):
+        b = (j / scale + user_view[1]) / (300 / parameter) - parameter
+        for i in range(size_x):
+            a = (i / scale + user_view[0]) / (300 / parameter) - parameter
             c = complex(a, b)
             z = complex(z_0)
             depth = 0
