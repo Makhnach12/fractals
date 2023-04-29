@@ -9,16 +9,29 @@
 #         self.parameter = 2
 
 class mandelbrot_set:
-    def __init__(self):
+    def __init__(self, num_iters, radius, z_0, parameter):
         self.SIZE = 600
         self.SCALE = 1
         self.x_0 = 0
         self.y_0 = 0
-        self.num_iterations = 100
+        self.num_iterations = num_iters
         self.coords_history = []
-        self.radius = 20
-        self.z_0 = 0
-        self.parameter = 2
+        self.radius = radius
+        self.z_0 = z_0
+        self.parameter = parameter
+    #
+    # def __init__(self):
+    #     self.SIZE = 600
+    #     self.SCALE = 1
+    #     self.x_0 = 0
+    #     self.y_0 = 0
+    #     self.num_iterations = 100
+    #     self.coords_history = []
+    #     self.radius = 20
+    #     self.z_0 = 0
+    #     self.parameter = 2
+
+
 
 
 
