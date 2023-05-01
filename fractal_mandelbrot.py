@@ -7,18 +7,21 @@ from rectangle import Rectangle
 
 
 def enter_characteristics():
-    characters = [0 for i in range(4)]
+    characters = [0 for i in range(5)]
     characters[0] = int(input('Введите N\n'))
     characters[1] = int(input('Введите радиус\n'))
-    characters[2] = int(input('Введите z0\n'))
-    characters[3] = int(input('Введите а\n'))
+    print('Введите действительную и мнимую части для z0')
+    characters[2] = int(input('Re(z) = '))
+    characters[3] = int(input('Im(z) = '))
+    characters[4] = int(input('Введите а\n'))
     return characters
 
 
 def main():
     characters = enter_characteristics()
     mandelbrot = mandelbrot_set.mandelbrot_set(characters[0], characters[1],
-                                               characters[2], characters[3])
+                                               characters[2], characters[3],
+                                               characters[4])
     pygame.init()
     screen = pygame.display.set_mode((mandelbrot.SIZE, mandelbrot.SIZE))
     pygame.display.set_caption("Множество Мандельброта")
