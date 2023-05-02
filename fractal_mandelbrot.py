@@ -11,8 +11,8 @@ def enter_characteristics():
     characters[0] = int(input('Введите N\n'))
     characters[1] = int(input('Введите радиус\n'))
     print('Введите действительную и мнимую части для z0')
-    characters[2] = int(input('Re(z) = '))
-    characters[3] = int(input('Im(z) = '))
+    characters[2] = float(input('Re(z) = '))
+    characters[3] = float(input('Im(z) = '))
     characters[4] = int(input('Введите а\n'))
     return characters
 

@@ -15,8 +15,5 @@ def mandelbrot_count(user_view, scale, size_x, size_y,
                 z = z ** 5 + c
                 if abs(z) > radius:
                     break
-            if depth == num_iterations - 1:
-                color = 100 * 2.55
-            else:
-                color = depth * 2.55
+            color = depth / num_iterations * 255
             yield i + coordinates[0], j + coordinates[1], (color, color, color)
