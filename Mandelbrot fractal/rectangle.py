@@ -7,7 +7,7 @@ import mandelbrot_set
 class Rectangle:
     def __init__(self, screen):
         self.screen = screen
-        self.image = pygame.image.load('pixilart-drawing-2.png')
+        self.image = pygame.image.load('Mandelbrot fractal/pixilart-drawing-2.png')
         self.rect = self.image.get_rect()
         self.rect.centerx = 0
         self.rect.centery = 0
