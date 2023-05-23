@@ -1,4 +1,6 @@
 import random
+from enum import Enum
+
 import pygame
 from math import floor
 from collections import deque
@@ -7,9 +9,16 @@ from pygame import gfxdraw
 
 def GetGoodRandom(heights: list[int], left: int, right: int, roughness: int):
     center = (left + right + 1) // 2
+    idx = 0
     while heights[center] <= 0 or heights[center] >= 600:
+        idx += 1
         heights[center] = (heights[left] + heights[right]) // 2 + \
                           roughness * (right - left + 1) * random.randint(-1, 1)
+        if idx == 100:
+            if heights[center] == 0:
+                heights[center] = 1
+            else:
+                heights[center] = 599
 
 
 def renderHeights(screen, heights):
@@ -19,18 +28,23 @@ def renderHeights(screen, heights):
 
 def MidPointCounter(imageWidth, heights, roughness):
     q = deque()
-
     q.append((imageWidth - 601, imageWidth - 1, roughness))
-
     while len(q) != 0:
         left, right, randomness = q.popleft()
         center = (left + right + 1) // 2
-
         GetGoodRandom(heights, left, right, roughness)
-
         if right - left > 2:
             q.append((left, center, floor(randomness // 2)))
             q.append((center, right, floor(randomness // 2)))
+
+
+def reset_heights(heights):
+    _start = heights[0]
+    _end = heights[599]
+    heights.clear()
+    heights.extend([0] * 600)
+    heights[0] = _start
+    heights[599] = _end
 
 
 def main():
@@ -57,6 +71,24 @@ def main():
                     is_iterator_moving_right = True
                 if event.key == pygame.K_LEFT:
                     is_iterator_moving_left = True
+                if event.key == pygame.K_UP:
+                    if roughness < 1:
+                        reset_heights(heights)
+                        imageWidth = 600
+                        iterator = 0
+                        flag = False
+                        roughness += 0.05
+                        print(roughness)
+                        MidPointCounter(imageWidth, heights, roughness)
+                if event.key == pygame.K_DOWN:
+                    if roughness > 0:
+                        reset_heights(heights)
+                        imageWidth = 600
+                        iterator = 0
+                        flag = False
+                        roughness -= 0.05
+                        print(roughness)
+                        MidPointCounter(imageWidth, heights, roughness)
             elif event.type == pygame.KEYUP:
                 if event.key == pygame.K_RIGHT:
                     is_iterator_moving_right = False
@@ -79,4 +111,5 @@ def main():
         pygame.display.update()
 
 
-main()
+if __name__ == "__main__":
+    main()
